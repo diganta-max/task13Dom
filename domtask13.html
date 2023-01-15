@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="task13DomCss.css">
+    <title>Dom task13</title>
+</head>
+
+<body>
+   
+    <form onsubmit="saveToLocalStorage(event)">
+        <h1>Book an apointment</h1></head>
+        
+        <div><label>Name</label>
+         <input type="text" name="username" required/>
+        </div>
+        <div>
+            <label>Email Id</label>
+        <input type="email" name="emailId" required/>
+        </div>
+        
+        <label>Phone Number</label>
+        <input type="tel" name="phonenumber" required/>
+        <button>Submit</button>
+    </form>
+    <ul id='listofitems'></ul>
+    <script>
+        function saveToLocalStorage(event){
+            event.preventDefault();
+            const name=event.target.username.value;
+            const email= event.target.emailId.value;
+            const phonenumber=event.target.phonenumber.value;
+            const obj={
+                name,
+                email,
+                phonenumber
+            }
+            localStorage.setItem(obj.email,JSON.stringify(obj))
+            showUserOnScreen(obj)
+            
+            
+        }
+        function showUserOnScreen(obj){
+            const parentElem= document.getElementById('listofitems')
+            
+            const childElem=document.createElement('li')
+            parentElem.innerHTML += `${obj.name}-${obj.email}-${obj.phonenumber}`
+           // childElem.textContent=obj.name+'  - '+ obj.email+' - '+obj.phonenumber
+        //     // parentElem.appendChild(deleteButton);
+        //     parentElem.innerHTML='${obj.name}-${obj.email}-${obj.phonenumber}'
+
+        // }
+        window.onload = function(){
+     for (let i = 0; i < localStorage.length; i++){
+      let obj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+       showUserOnScreen(obj);}
+    
+}
+</script>
+    
+</body>
+</html>
